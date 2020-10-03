@@ -37,34 +37,26 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ClippedDrawer({ drawerOpen, drawerClose }) {
+export default function ClippedDrawer({
+  drawerOpen,
+  drawerClose,
+  getYearMonth,
+}) {
   const classes = useStyles();
   const theme = useTheme();
   const isActive = useMediaQuery(theme.breakpoints.up("md"));
-  const [menuBarItems, setMenuBarItems] = useState({
-    items: [
-      {
-        year: "2020",
-        months: ["JAN", "FEB", "MARCH", "APRIL"],
-        open: false,
-        id: uuid(),
-      },
-      {
-        year: "2021",
-        months: ["JAN", "FEB", "MARCH", "APRIL"],
-        open: false,
-        id: uuid(),
-      },
-    ],
-  });
-
-  const handleClick = (selectedYear, status) => {
-    const { items } = menuBarItems;
-    const updatedItems = items.map((item) =>
-      item.year === selectedYear ? { ...item, open: !item.open } : { ...item }
-    );
-    setMenuBarItems({ items: updatedItems });
-  };
+  const [menuBarItems, setMenuBarItems] = useState([
+    {
+      year: "2020",
+      months: ["JANUARY", "FEBRUARY", "MARCH", "APRIL"],
+      id: uuid(),
+    },
+    {
+      year: "2021",
+      months: ["JANUARY", "FEBRUARY", "MARCH", "APRIL"],
+      id: uuid(),
+    },
+  ]);
 
   const { items } = menuBarItems;
   return (
@@ -91,7 +83,13 @@ export default function ClippedDrawer({ drawerOpen, drawerClose }) {
             MER`DASHBOARD
           </Typography>
           <React.Fragment>
-            <DropdownYear items={items} handleClick={handleClick} />
+            {menuBarItems.map((yearMenus, index) => (
+              <DropdownYear
+                getYearMonth={getYearMonth}
+                key={yearMenus.id}
+                yearMenus={yearMenus}
+              />
+            ))}
           </React.Fragment>
         </div>
       </Drawer>

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import MenuCollapse from "./MenuCollapse";
+import { Link } from "react-router-dom";
 import Appbar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import {
@@ -27,6 +28,9 @@ const Header = ({ sideBarSize, openDrawer }) => {
       width: "100%",
       borderRadius: "2px",
     },
+    linkStyle: {
+      textDecoration: "none",
+    },
   }));
 
   const appBarMenu = ["Contact", "About", "Logout"];
@@ -43,11 +47,18 @@ const Header = ({ sideBarSize, openDrawer }) => {
   const appBarSmall = () => {
     return isActive ? (
       <React.Fragment>
-        {appBarMenu.map((menu) => (
-          <Button key={menu} style={{ opacity: 0.8 }} color="primary">
-            {menu}
+        <Button color="primary" style={{ opacity: 0.8 }}>
+          Contact
+        </Button>
+        <Link className={classes.linkStyle} to="/about">
+          <Button color="primary" style={{ opacity: 0.8 }}>
+            About
           </Button>
-        ))}
+        </Link>
+
+        <Button color="primary" style={{ opacity: 0.8 }}>
+          Login
+        </Button>
       </React.Fragment>
     ) : (
       <React.Fragment>
@@ -72,11 +83,13 @@ const Header = ({ sideBarSize, openDrawer }) => {
     >
       <Toolbar>
         <IconButton>
-          <StoreIcon
-            fontSize="large"
-            color="primary"
-            style={{ opacity: 0.8 }}
-          />
+          <Link to="/">
+            <StoreIcon
+              fontSize="large"
+              color="primary"
+              style={{ opacity: 0.8 }}
+            />
+          </Link>
         </IconButton>
         <Typography color="primary" style={{ flex: 1 }} variant="h6">
           MERCATRACKS

@@ -1,0 +1,48 @@
+.Item {
+  display: flex;
+}
+
+.Item_form {
+  margin: 10px;
+  text-align: center;
+  border: 1px solid lightgray;
+  background: white;
+  padding: 10px;
+  border-radius: 10px;
+  display: flex;
+}
+.Item_input {
+  margin-right: 10px;
+  width: 200px;
+  height: 30px;
+  border: 1px solid lightgray;
+  border-radius: 10px;
+}
+.Item_itemDetail {
+  object-fit: contain;
+  display: flex;
+  flex: 1;
+  align-items: center;
+  margin-left: 20px;
+  justify-content: space-around;
+  opacity: 70%;
+}
+
+@media screen and (max-width: 980px) {
+  .Item_form {
+    flex-direction: column;
+    text-align: start;
+    margin-top: 20px;
+  }
+  .Item_itemDetail {
+    align-items: flex-start;
+    flex-direction: column;
+    margin: 5px;
+  }
+  .Item_form > form {
+    display: flex;
+  }
+  .Item_input {
+    flex: 1;
+  }
+}

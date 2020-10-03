@@ -6,9 +6,10 @@ import {
   Collapse,
   makeStyles,
 } from "@material-ui/core";
+import { Link } from "react-router-dom";
 import { uuid } from "uuidv4";
 
-const Dropdown = ({ open, months }) => {
+const Dropdown = ({ openMenu, month, year, getYearMonth }) => {
   const useStyle = makeStyles((theme) => ({
     listItemTextStyle: {
       color: "rgb(204 204 204)",
@@ -20,24 +21,29 @@ const Dropdown = ({ open, months }) => {
     },
   }));
 
+  const handleClick = () => {
+    getYearMonth(year, month);
+  };
+
   const classes = useStyle();
 
   return (
-    <Collapse in={open} timeout="auto" unmountOnExit>
+    <Collapse in={openMenu} timeout="auto">
       <List component="div" disablePadding>
-        {months.map((month, index) => (
+        <Link to={`/${year}/${month}`} style={{ textDecoration: "none" }}>
           <ListItem
             className={classes.listItemStyle}
             style={{ paddingLeft: "70px" }}
             button
             key={uuid()}
+            onClick={() => handleClick(year, month)}
           >
             <ListItemText
               className={classes.listItemTextStyle}
               primary={month}
             />
           </ListItem>
-        ))}
+        </Link>
       </List>
     </Collapse>
   );

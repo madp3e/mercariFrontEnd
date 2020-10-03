@@ -13,9 +13,10 @@ import {
 } from "@material-ui/core";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
+import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import { useState } from "react";
 
-const BankInDetailRow = ({ bankInDetail }) => {
+const BankInDetailRow = ({ bankInDetail, deleteBankInDetail }) => {
   const [openDetail, setOpenDetail] = useState(false);
 
   const useStyles = makeStyles((theme) => ({
@@ -25,6 +26,10 @@ const BankInDetailRow = ({ bankInDetail }) => {
       opacity: 0.8,
     },
   }));
+
+  const handleDelete = (detail, month) => {
+    deleteBankInDetail(detail, month);
+  };
 
   const classes = useStyles();
 
@@ -37,6 +42,7 @@ const BankInDetailRow = ({ bankInDetail }) => {
           </IconButton>
         </TableCell>
         <TableCell align="center">{bankInDetail.month}</TableCell>
+
         <TableCell align="center">{bankInDetail.totalBankIn}</TableCell>
       </TableRow>
       <TableRow>
@@ -54,15 +60,31 @@ const BankInDetailRow = ({ bankInDetail }) => {
                   <TableRow>
                     <TableCell>Date</TableCell>
                     <TableCell>Amount(RM)</TableCell>
+                    <TableCell>Delete</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {bankInDetail.details.map((detail) => (
-                    <TableRow>
-                      <TableCell>{detail.date}</TableCell>
-                      <TableCell>{detail.amount}</TableCell>
-                    </TableRow>
-                  ))}
+                  {bankInDetail.details &&
+                    bankInDetail.details.map((detail, index) => (
+                      <TableRow key={detail.date}>
+                        <TableCell>{detail.date}</TableCell>
+                        <TableCell>{detail.amount}</TableCell>
+                        <TableCell>
+                          {/* DELETE BUTTON FOR DETAILS */}
+                          <IconButton
+                            style={{ paddingTop: 0, paddingBottom: 0 }}
+                            onClick={() =>
+                              handleDelete(detail.date, bankInDetail.month)
+                            }
+                          >
+                            <DeleteForeverIcon
+                              color="secondary"
+                              fontSize="small"
+                            />
+                          </IconButton>
+                        </TableCell>
+                      </TableRow>
+                    ))}
                 </TableBody>
               </Table>
             </Box>

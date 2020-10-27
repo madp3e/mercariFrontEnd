@@ -1,4 +1,4 @@
-<h3>I am working on to deploy this project as a serverless application.Currently, I am setting up my AWS lambda function and a few stacks that are necessary</h3>
+
 
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
